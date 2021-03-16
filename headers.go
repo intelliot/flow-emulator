@@ -21,7 +21,7 @@ package emulator
 import (
 	"errors"
 
-	flowgo "github.com/onflow/flow-go/model/flow"
+	"github.com/onflow/flow-go/model/flow"
 	"github.com/onflow/flow-go/storage"
 )
 
@@ -35,11 +35,11 @@ func newHeaders(b *Blockchain) *headers {
 	return &headers{b}
 }
 
-func (h headers) Store(_ *flowgo.Header) error {
+func (h headers) Store(_ *flow.Header) error {
 	return errors.New("not implemented")
 }
 
-func (h headers) ByBlockID(blockID flowgo.Identifier) (*flowgo.Header, error) {
+func (h headers) ByBlockID(blockID flow.Identifier) (*flow.Header, error) {
 	block, err := h.blockchain.storage.BlockByID(blockID)
 	if err != nil {
 		return nil, err
@@ -47,7 +47,7 @@ func (h headers) ByBlockID(blockID flowgo.Identifier) (*flowgo.Header, error) {
 	return block.Header, nil
 }
 
-func (h headers) ByHeight(height uint64) (*flowgo.Header, error) {
+func (h headers) ByHeight(height uint64) (*flow.Header, error) {
 	block, err := h.blockchain.storage.BlockByHeight(height)
 	if err != nil {
 		return nil, err
@@ -55,7 +55,19 @@ func (h headers) ByHeight(height uint64) (*flowgo.Header, error) {
 	return block.Header, nil
 }
 
-func (h headers) ByParentID(_ flowgo.Identifier) ([]*flowgo.Header, error) {
+func (h headers) ByParentID(_ flow.Identifier) ([]*flow.Header, error) {
 	return nil, errors.New("not implemented")
 }
 
+func (h headers) IndexByChunkID(headerID flow.Identifier, chunkID flow.Identifier) error {
+	return errors.New("not implemented")
+}
+
+
+func (h headers) BatchIndexByChunkID(headerID flow.Identifier, chunkID flow.Identifier, batch storage.BatchStorage) error {
+	return errors.New("not implemented")
+}
+
+func (h headers)IDByChunkID(chunkID flow.Identifier) (flow.Identifier, error) {
+	return flow.Identifier{}, errors.New("not implemented")
+}
